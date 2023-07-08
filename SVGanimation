@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'poppins', sans-serif;
+        }
+
+        svg {
+            /* display: inline-block; */
+        }
+
+        #animated-svg {
+            position: absolute;
+            bottom: -50%;
+            right: 10%;
+            height: 100%;
+        }
+
+        section {
+            height: 450px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+    </style>
+</head>
+
+<body>
+    <section style="background-color: red; position: relative;">
+        <div class="content">
+            Section 1
+        </div>
+        <svg id="animated-svg" width="206" height="540" viewBox="0 0 206 540" fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <path
+                d="M194.791 3.3608C206.017 42.6582 206.241 70.0658 188.721 107.066C172.898 140.479 141.163 170.721 116.071 197.437C85.0052 230.514 41.2594 302.685 78.1258 344.984C106.752 377.828 161.014 369.435 166.815 322.776C169.051 304.788 151.069 287.45 133.175 288.314C113.849 289.248 96.4228 308.995 86.0237 323.346C58.0953 361.887 86.1599 407.178 76.9406 448.799C68.3272 487.685 40.8713 507.711 7.48992 525.869C4.63058 527.425 17.6076 531.466 20.7271 532.777C32.1629 537.583 26.1266 537.736 17.48 534.103C11.919 531.766 -1.13547 529.726 5.17588 523.552C9.72929 519.097 15.0258 507.937 17.5782 501.863"
+                stroke="navy" stroke-width="6.49254" stroke-linecap="round" />
+        </svg>
+    </section>
+    <section style="background-color: pink;">
+        <div class="content">
+            Section 2
+        </div>
+    </section>
+
+    <section style="background-color: yellowgreen;">
+        <div class="content">
+            section 3
+        </div>
+    </section>
+
+    <svg width="936" height="500" viewBox="0 0 936 1631" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+            d="M687.858 2.99997C569.82 207.267 481.499 471.835 487.694 733.238C489.379 804.321 496.389 1150.37 603.636 1132.87C655.002 1124.48 634.393 1055.61 612.261 1021.12C568.694 953.228 529.395 903.747 465.4 861.801C366.621 797.056 213.812 733.095 143.34 863.288C112.925 919.477 150.435 1011.37 186.273 1053.25C221.409 1094.3 261.906 1118.83 303.805 1147.14C337.86 1170.15 333.645 1163.17 304.077 1189.95C229.862 1257.18 199.453 1437.55 333.9 1445.88C409.334 1450.55 467.708 1410.98 530.134 1372.82C553.582 1358.49 594.658 1335.5 610.968 1310.39C628.724 1283.06 592.11 1275.79 575.081 1287.07C532.741 1315.11 517.567 1346.11 527.357 1406.11C536.211 1460.37 582.48 1526.72 633.544 1521.91C661.875 1519.24 656.433 1529.02 637.168 1544.12C622.221 1555.83 571.914 1577.56 589.92 1574.62C596.264 1573.59 648.708 1564.59 651.114 1556.43C659.681 1527.39 653.953 1490.77 657.116 1460.62"
+            stroke="navy" stroke-width="10" stroke-linecap="round" />
+    </svg>
+
+
+    <section style="background-color: blueviolet;">
+        <div class="content">
+            section 3
+        </div>
+    </section>
+
+    <script>
+
+        // Select all path elements within SVGs
+        let pathElements = document.querySelectorAll('svg path');
+
+        // Initialize an array to store the path lengths
+        let pathLengths = [];
+
+        // Calculate and store the path lengths for each path element
+        pathElements.forEach(path => {
+            let pathLength = path.getTotalLength();
+            path.style.strokeDasharray = pathLength + ' ' + pathLength;
+            path.style.strokeDashoffset = pathLength;
+            pathLengths.push(pathLength);
+        });
+
+        window.addEventListener('scroll', () => {
+            var scrollPercentage = (document.documentElement.scrollTop + document.body.scrollTop) / (document.documentElement.scrollHeight - document.documentElement.clientHeight) * 3;
+
+            // Animate each path element based on its corresponding path length
+            pathElements.forEach((path, index) => {
+                var drawLength = pathLengths[index] * scrollPercentage;
+                path.style.strokeDashoffset = pathLengths[index] - drawLength;
+            });
+        });
+
+    </script>
+</body>
+
+</html>
